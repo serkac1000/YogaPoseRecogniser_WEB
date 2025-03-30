@@ -1,0 +1,989 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="component_event" id="`.`?tm#WDlSGr*=fR+SV" x="-879" y="-470">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="TeachableMachine" is_generic="false" instance_name="TeachableMachine1" event_name="ClassifierReady"></mutation>
+    <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+    <statement name="DO">
+      <block type="component_set_get" id="(`Nm]SUU]W-x7=*3Qfl7">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="StartButton"></mutation>
+        <field name="COMPONENT_SELECTOR">StartButton</field>
+        <field name="PROP">Enabled</field>
+        <value name="VALUE">
+          <block type="logic_boolean" id=".)Yy]2z!K?-;w9-qxhF.">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="b].!N)No!RUs[,}shLaH">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="ToggleCameraButton"></mutation>
+            <field name="COMPONENT_SELECTOR">ToggleCameraButton</field>
+            <field name="PROP">Enabled</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="Zfbmp[~5;)9~0K/veRzN">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="4#x_7u3%rFk^ydJF?xRO" x="-863" y="-346">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="ToggleCameraButton" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">ToggleCameraButton</field>
+    <statement name="DO">
+      <block type="component_method" id="Qj^*i|lzbd?0G44^K(kW">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="TeachableMachine" method_name="ToggleCameraFacingMode" is_generic="false" instance_name="TeachableMachine1"></mutation>
+        <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="YPib51vD+rUlt5lAaR_0" x="-865" y="-251">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="StartButton" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">StartButton</field>
+    <statement name="DO">
+      <block type="controls_if" id="W_zyiZ}V3xd4dUVm~N9p">
+        <mutation xmlns="http://www.w3.org/1999/xhtml" else="1"></mutation>
+        <value name="IF0">
+          <block type="component_set_get" id="dUt0j)J3g0|Hj:fRS~-/">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="PersonalImageClassifier" set_or_get="get" property_name="Running" is_generic="false" instance_name="PersonalImageClassifier1"></mutation>
+            <field name="COMPONENT_SELECTOR">PersonalImageClassifier1</field>
+            <field name="PROP">Running</field>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="component_method" id="ku7G7^GIlC:6$yYge3z{">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="TeachableMachine" method_name="StopContinuousClassification" is_generic="false" instance_name="TeachableMachine1"></mutation>
+            <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+            <next>
+              <block type="component_set_get" id="tOeOmWU4l{EE4?]}Hn#^">
+                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" set_or_get="set" property_name="Text" is_generic="false" instance_name="StartButton"></mutation>
+                <field name="COMPONENT_SELECTOR">StartButton</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text" id="q9U|9!xl_NvG}ZJDYNFj">
+                    <field name="TEXT">Start Recognition</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="3Z9jKuH8S14wFcyGbN2a">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="PoseLabel"></mutation>
+                    <field name="COMPONENT_SELECTOR">PoseLabel</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="9U3rGa5M0tXyBmpQEZ1B">
+                        <field name="TEXT">No Pose Detected</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="component_method" id="6N:(e$4pg${Lb.{?$QXe">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="TeachableMachine" method_name="StartContinuousClassification" is_generic="false" instance_name="TeachableMachine1"></mutation>
+            <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+            <next>
+              <block type="component_set_get" id="+gan6UwsQJ{EJt%?G3BI">
+                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" set_or_get="set" property_name="Text" is_generic="false" instance_name="StartButton"></mutation>
+                <field name="COMPONENT_SELECTOR">StartButton</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text" id="]]ac`MFI6+n:C[BFUTlk">
+                    <field name="TEXT">Stop Recognition</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="Ba49~}Q27`Q:LO@9p$_Y" x="-909" y="117">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="TeachableMachine" is_generic="false" instance_name="TeachableMachine1" event_name="GotClassification"></mutation>
+    <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+    <statement name="DO">
+      <block type="local_declaration_statement" id="zUTFVMIX_lC{5lP9]/n(">
+        <mutation xmlns="http://www.w3.org/1999/xhtml">
+          <localname name="B1"></localname>
+          <localname name="B2"></localname>
+          <localname name="B3"></localname>
+          <localname name="highestPose"></localname>
+          <localname name="highestConfidence"></localname>
+        </mutation>
+        <field name="VAR0">B1</field>
+        <field name="VAR1">B2</field>
+        <field name="VAR2">B3</field>
+        <field name="VAR3">highestPose</field>
+        <field name="VAR4">highestConfidence</field>
+        <value name="DECL0">
+          <block type="dictionaries_lookup" id="d3uO)[w|fqhH_AJlOEN4">
+            <value name="KEY">
+              <block type="text" id="oH)g`lJ!wMDnfmFVTNEg">
+                <field name="TEXT">B1</field>
+              </block>
+            </value>
+            <value name="DICT">
+              <block type="lexical_variable_get" id=":U^`wCfC87o+MOGJt5_:">
+                <mutation xmlns="http://www.w3.org/1999/xhtml">
+                  <eventparam name="result"></eventparam>
+                </mutation>
+                <field name="VAR">result</field>
+              </block>
+            </value>
+            <value name="NOTFOUND">
+              <block type="math_number" id="+vEob=6)4-@b.]sdYk1]">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DECL1">
+          <block type="dictionaries_lookup" id="oqg;Ft0B@bD$Bl(+4hS3">
+            <value name="KEY">
+              <block type="text" id="3@Fj=jQ{JZW_h[JT!cIE">
+                <field name="TEXT">B2</field>
+              </block>
+            </value>
+            <value name="DICT">
+              <block type="lexical_variable_get" id="+JespXj)43?`b8zbClzW">
+                <mutation xmlns="http://www.w3.org/1999/xhtml">
+                  <eventparam name="result"></eventparam>
+                </mutation>
+                <field name="VAR">result</field>
+              </block>
+            </value>
+            <value name="NOTFOUND">
+              <block type="math_number" id="BLzl:|:@gW?|O+{gQQ7D">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DECL2">
+          <block type="dictionaries_lookup" id="#O6Mz5_jKL[Sze4,;v!2">
+            <value name="KEY">
+              <block type="text" id="rNM,|c$R~i0^|4_8J1/s">
+                <field name="TEXT">B3</field>
+              </block>
+            </value>
+            <value name="DICT">
+              <block type="lexical_variable_get" id="w@%G.gWA{Zpi`#FGD=Zf">
+                <mutation xmlns="http://www.w3.org/1999/xhtml">
+                  <eventparam name="result"></eventparam>
+                </mutation>
+                <field name="VAR">result</field>
+              </block>
+            </value>
+            <value name="NOTFOUND">
+              <block type="math_number" id="Oa#PNB[=kCEFORP*$:Ad">
+                <field name="NUM">0</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="DECL3">
+          <block type="text" id="oiPfj78WlQHgqIjYRnm4">
+            <field name="TEXT">None</field>
+          </block>
+        </value>
+        <value name="DECL4">
+          <block type="math_number" id="SkUtwXM5jF3zNLOp81dQ">
+            <field name="NUM">0</field>
+          </block>
+        </value>
+        <statement name="STACK">
+          <block type="component_set_get" id="3Z9jKuH8S14wFcyGbN2b">
+            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="ConfidenceLabel" set_or_get="set" property_name="Text" is_generic="false" instance_name="ConfidenceLabel"></mutation>
+            <field name="COMPONENT_SELECTOR">ConfidenceLabel</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text_join" id="bvnMJfEiR4qCxTmY96oU">
+                <mutation items="3"></mutation>
+                <value name="ADD0">
+                  <block type="text" id="w2QSqNv8OapKHgxEMJf3">
+                    <field name="TEXT">Confidence: </field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="math_multiply" id="7wCTVF8l90JiMkpeBs6a">
+                    <value name="NUM1">
+                      <block type="math_max" id="HMG3t5Vn9KwPQgdAcBeI">
+                        <mutation items="3"></mutation>
+                        <value name="NUM0">
+                          <block type="lexical_variable_get" id="B1h6gDFVYXfkliS9TDXZ">
+                            <field name="VAR">B1</field>
+                          </block>
+                        </value>
+                        <value name="NUM1">
+                          <block type="lexical_variable_get" id="Zx0zq25vLrGAcDUuLyMt">
+                            <field name="VAR">B2</field>
+                          </block>
+                        </value>
+                        <value name="NUM2">
+                          <block type="lexical_variable_get" id="UspLcqO8CuGnS1kTxEYw">
+                            <field name="VAR">B3</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="NUM2">
+                      <block type="math_number" id="xQBzNRw3nM1tTqwXTLLT">
+                        <field name="NUM">100</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="ADD2">
+                  <block type="text" id="Fj9nXkzxVdxHYLBv2kO3">
+                    <field name="TEXT">%</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <next>
+              <block type="controls_if" id="b2uoUzK8wd7NeIgVwkr9">
+                <mutation elseif="2" else="1"></mutation>
+                <value name="IF0">
+                  <block type="logic_operation" id="(x9W_983I}onuA!RFj-B">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" items="2"></mutation>
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="math_compare" id="SoT22hXa,gmr$sC(8NqN">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="7`g0{oD3-5yYeKPX*xjX">
+                            <field name="VAR">B1</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lexical_variable_get" id="eWum6:KpRF4~s2Pu1cN,">
+                            <field name="VAR">B2</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_compare" id="3Mn$O~57/!fJcCnoL~^a">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="NLS)-$S|=bgpLxQ}FJV%">
+                            <field name="VAR">B1</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lexical_variable_get" id="`vPz~UDC#YiRR{2,]D/Q">
+                            <field name="VAR">B3</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO0">
+                  <block type="lexical_variable_set" id="qW7OoVA2QUeXK1bqskjD">
+                    <field name="VAR">highestPose</field>
+                    <value name="VALUE">
+                      <block type="text" id="0RCYEZeyfzwdM4FUuQjw">
+                        <field name="TEXT">Pose 1</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="lexical_variable_set" id="pWUSBtHrdvS0dldPRGqP">
+                        <field name="VAR">highestConfidence</field>
+                        <value name="VALUE">
+                          <block type="lexical_variable_get" id="SnlVFuBTrZiU5UJc04NP">
+                            <field name="VAR">B1</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="(y^RExcl1$Jnc,7f,JMy">
+                            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image1"></mutation>
+                            <field name="COMPONENT_SELECTOR">Image1</field>
+                            <field name="PROP">Visible</field>
+                            <value name="VALUE">
+                              <block type="logic_boolean" id="hyyZVzGza(9?De0k(Vk$">
+                                <field name="BOOL">TRUE</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="component_set_get" id="`z$SbE;15u6d7z+8;m:|">
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image2"></mutation>
+                                <field name="COMPONENT_SELECTOR">Image2</field>
+                                <field name="PROP">Visible</field>
+                                <value name="VALUE">
+                                  <block type="logic_boolean" id="]!q61h%]k+@l;MN.T:2o">
+                                    <field name="BOOL">FALSE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="component_set_get" id="[2p,-b`NSN)j|l2zRSn|">
+                                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image3"></mutation>
+                                    <field name="COMPONENT_SELECTOR">Image3</field>
+                                    <field name="PROP">Visible</field>
+                                    <value name="VALUE">
+                                      <block type="logic_boolean" id="/nKMLFxr99j6V@u|`i1R">
+                                        <field name="BOOL">FALSE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <value name="IF1">
+                  <block type="logic_operation" id="aUk]Re#@)OixYr_M%.]P">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" items="2"></mutation>
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="math_compare" id="A8B8]`XKfz6Tv/gCDWxR">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="1G%2Dey.|T*Jm()T]QPG">
+                            <field name="VAR">B2</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lexical_variable_get" id="1pXeY|C?s#f7D,b7:0x(">
+                            <field name="VAR">B1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_compare" id="HU@HDT:qft$(O|V.VyQe">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="{*sY.jzR:G|SQ.NDqaNx">
+                            <field name="VAR">B2</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lexical_variable_get" id="xx*38lfh01K=iF]Bq^X.">
+                            <field name="VAR">B3</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO1">
+                  <block type="lexical_variable_set" id="qW7OoVA2QUeXK1bqskjE">
+                    <field name="VAR">highestPose</field>
+                    <value name="VALUE">
+                      <block type="text" id="0RCYEZeyfzwdM4FUuQjx">
+                        <field name="TEXT">Pose 2</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="lexical_variable_set" id="pWUSBtHrdvS0dldPRGqQ">
+                        <field name="VAR">highestConfidence</field>
+                        <value name="VALUE">
+                          <block type="lexical_variable_get" id="SnlVFuBTrZiU5UJc04NQ">
+                            <field name="VAR">B2</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="3;3A+)MVQ6RQEq`bE#k,">
+                            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image1"></mutation>
+                            <field name="COMPONENT_SELECTOR">Image1</field>
+                            <field name="PROP">Visible</field>
+                            <value name="VALUE">
+                              <block type="logic_boolean" id="1wY4}f/U(cNAvb[Hk8_W">
+                                <field name="BOOL">FALSE</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="component_set_get" id="=9~P$So?NJ^/QQM]p]Vr">
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image2"></mutation>
+                                <field name="COMPONENT_SELECTOR">Image2</field>
+                                <field name="PROP">Visible</field>
+                                <value name="VALUE">
+                                  <block type="logic_boolean" id="7$q4AcSif/.sTH=cak8s">
+                                    <field name="BOOL">TRUE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="component_set_get" id="0KJs?j*iIx,fAq4_itQq">
+                                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image3"></mutation>
+                                    <field name="COMPONENT_SELECTOR">Image3</field>
+                                    <field name="PROP">Visible</field>
+                                    <value name="VALUE">
+                                      <block type="logic_boolean" id="-n`.B@NCaf8H#GuJDUdB">
+                                        <field name="BOOL">FALSE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <value name="IF2">
+                  <block type="logic_operation" id="sgS?YtdP9b-82(sJ|4/%">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" items="2"></mutation>
+                    <field name="OP">AND</field>
+                    <value name="A">
+                      <block type="math_compare" id="#{@AOo,|ToUf=45,kjpc">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="YbSzJm(V?45KePxo$Ea5">
+                            <field name="VAR">B3</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lexical_variable_get" id="6U:qs-(i3ae~GA9[c1ra">
+                            <field name="VAR">B1</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_compare" id="F$t:#Ko@2+i9hG(6P~UN">
+                        <field name="OP">GT</field>
+                        <value name="A">
+                          <block type="lexical_variable_get" id="Ln^(%P.ER:X3%x`LEp/U">
+                            <field name="VAR">B3</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="lexical_variable_get" id=".HLqjUs$1.G_IV97KCl*">
+                            <field name="VAR">B2</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <statement name="DO2">
+                  <block type="lexical_variable_set" id="qW7OoVA2QUeXK1bqskjF">
+                    <field name="VAR">highestPose</field>
+                    <value name="VALUE">
+                      <block type="text" id="0RCYEZeyfzwdM4FUuQjy">
+                        <field name="TEXT">Pose 3</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="lexical_variable_set" id="pWUSBtHrdvS0dldPRGqR">
+                        <field name="VAR">highestConfidence</field>
+                        <value name="VALUE">
+                          <block type="lexical_variable_get" id="SnlVFuBTrZiU5UJc04NR">
+                            <field name="VAR">B3</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="p4p[Yq}9G.ACBR@k]5_m">
+                            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image1"></mutation>
+                            <field name="COMPONENT_SELECTOR">Image1</field>
+                            <field name="PROP">Visible</field>
+                            <value name="VALUE">
+                              <block type="logic_boolean" id="i@Gp$5m3~JoujGpZL_0$">
+                                <field name="BOOL">FALSE</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="component_set_get" id="]UP(VR}O@OsXXT(?gLYI">
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image2"></mutation>
+                                <field name="COMPONENT_SELECTOR">Image2</field>
+                                <field name="PROP">Visible</field>
+                                <value name="VALUE">
+                                  <block type="logic_boolean" id="a4#e,:D9~nY3{Co|7Q_=">
+                                    <field name="BOOL">FALSE</field>
+                                  </block>
+                                </value>
+                                <next>
+                                  <block type="component_set_get" id="Xg6Al;wUU]%!BV69~8`+">
+                                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image3"></mutation>
+                                    <field name="COMPONENT_SELECTOR">Image3</field>
+                                    <field name="PROP">Visible</field>
+                                    <value name="VALUE">
+                                      <block type="logic_boolean" id="6XpoWQSLM;jk%X|1F~Qq">
+                                        <field name="BOOL">TRUE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <statement name="ELSE">
+                  <block type="lexical_variable_set" id="AapW85ky8Pc5Qdf2kDV6">
+                    <field name="VAR">highestPose</field>
+                    <value name="VALUE">
+                      <block type="text" id="v7YG8kJlRWUHp0mYl9mN">
+                        <field name="TEXT">None</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" id="p4p[Yq}9G.ACBR@k]5_n">
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image1"></mutation>
+                        <field name="COMPONENT_SELECTOR">Image1</field>
+                        <field name="PROP">Visible</field>
+                        <value name="VALUE">
+                          <block type="logic_boolean" id="i@Gp$5m3~JoujGpZL_0%">
+                            <field name="BOOL">FALSE</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="]UP(VR}O@OsXXT(?gLYJ">
+                            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image2"></mutation>
+                            <field name="COMPONENT_SELECTOR">Image2</field>
+                            <field name="PROP">Visible</field>
+                            <value name="VALUE">
+                              <block type="logic_boolean" id="a4#e,:D9~nY3{Co|7Q_>">
+                                <field name="BOOL">FALSE</field>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="component_set_get" id="Xg6Al;wUU]%!BV69~8`-">
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="Image3"></mutation>
+                                <field name="COMPONENT_SELECTOR">Image3</field>
+                                <field name="PROP">Visible</field>
+                                <value name="VALUE">
+                                  <block type="logic_boolean" id="6XpoWQSLM;jk%X|1F~Qr">
+                                    <field name="BOOL">FALSE</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="component_set_get" id="3Z9jKuH8S14wFcyGbN2c">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="PoseLabel"></mutation>
+                    <field name="COMPONENT_SELECTOR">PoseLabel</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text_join" id="bvnMJfEiR4qCxTmY96oV">
+                        <mutation items="2"></mutation>
+                        <value name="ADD0">
+                          <block type="text" id="w2QSqNv8OapKHgxEMJf4">
+                            <field name="TEXT">Detected: </field>
+                          </block>
+                        </value>
+                        <value name="ADD1">
+                          <block type="lexical_variable_get" id="B1h6gDFVYXfkliS9TDXZ">
+                            <field name="VAR">highestPose</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="controls_if" id="HWzZG7VgvCF0ZjgRIxST">
+                        <value name="IF0">
+                          <block type="math_compare" id="90X0nQkHXGKsxpEcfylf">
+                            <field name="OP">GT</field>
+                            <value name="A">
+                              <block type="lexical_variable_get" id="G9iLTQ7O8XkPafEKXXqB">
+                                <field name="VAR">highestConfidence</field>
+                              </block>
+                            </value>
+                            <value name="B">
+                              <block type="math_number" id="qeIYDL9qJFQFnSMllpZU">
+                                <field name="NUM">0.5</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO">
+                          <block type="component_set_get" id="2HLEGmfPjxsFMnMgNuQq">
+                            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="StarImage"></mutation>
+                            <field name="COMPONENT_SELECTOR">StarImage</field>
+                            <field name="PROP">Visible</field>
+                            <value name="VALUE">
+                              <block type="logic_boolean" id="4gN1PJYE8XYRnz38hk2M">
+                                <field name="BOOL">TRUE</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="controls_if" id="B01JEw6oT6YGEIl78Nhs">
+                            <value name="IF0">
+                              <block type="math_compare" id="XHR4yZuLEr7dwjlRdWpP">
+                                <field name="OP">LTE</field>
+                                <value name="A">
+                                  <block type="lexical_variable_get" id="LyRWjZsV0WT2hCbdW1IW">
+                                    <field name="VAR">highestConfidence</field>
+                                  </block>
+                                </value>
+                                <value name="B">
+                                  <block type="math_number" id="JHxNK7IbXZxw6GK1Rdq1">
+                                    <field name="NUM">0.5</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <statement name="DO">
+                              <block type="component_set_get" id="tJGhZfKQlE9P6bwfzG0k">
+                                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Image" set_or_get="set" property_name="Visible" is_generic="false" instance_name="StarImage"></mutation>
+                                <field name="COMPONENT_SELECTOR">StarImage</field>
+                                <field name="PROP">Visible</field>
+                                <value name="VALUE">
+                                  <block type="logic_boolean" id="O0X6CFzL6wn3NMtxMi9E">
+                                    <field name="BOOL">FALSE</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="global_declaration" id="qZdK1zUQ8l0^IG2@8{7O" x="-909" y="829">
+    <field name="NAME">currentExpectedPose</field>
+    <value name="VALUE">
+      <block type="math_number" id="L4cZfHDRXcbgsvBYMXz7">
+        <field name="NUM">1</field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="jHXdCPfuJKGTfUzT7Bj6" x="-909" y="889">
+    <field name="NAME">sequenceMode</field>
+    <value name="VALUE">
+      <block type="logic_boolean" id="oepnKEv0OlEkbFwpjyXD">
+        <field name="BOOL">FALSE</field>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" id="KVjmtTuJfnUv8z5ZxnTp" x="-909" y="949">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" is_generic="false" instance_name="SequenceButton" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">SequenceButton</field>
+    <statement name="DO">
+      <block type="controls_if" id="tMwuRZZxDGVr2OPFRKsJ">
+        <mutation else="1"></mutation>
+        <value name="IF0">
+          <block type="global_declaration_expr" id="Zi3nVLB0p3Ss3WsDMzgU">
+            <field name="NAME">sequenceMode</field>
+          </block>
+        </value>
+        <statement name="DO0">
+          <block type="global_declaration_stmt" id="cw0cKpeCYkDQLu0BrQMy">
+            <field name="NAME">sequenceMode</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="dQQc9r07H5OQ5uCwKBWJ">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" id="JdOuQp5aHKrgjVzP5y7D">
+                <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="NextPoseLabel"></mutation>
+                <field name="COMPONENT_SELECTOR">NextPoseLabel</field>
+                <field name="PROP">Text</field>
+                <value name="VALUE">
+                  <block type="text" id="zKV47UlJNcnxTmwmQWC9">
+                    <field name="TEXT">Next Pose: None</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="uTYRGgdLVi8hf1LGRpJA">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" set_or_get="set" property_name="Text" is_generic="false" instance_name="SequenceButton"></mutation>
+                    <field name="COMPONENT_SELECTOR">SequenceButton</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="19f63lzCioPWdlGVERxE">
+                        <field name="TEXT">Start Pose Sequence</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" id="JOgmqklKdwEkbsvnxJKt">
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="Clock1"></mutation>
+                        <field name="COMPONENT_SELECTOR">Clock1</field>
+                        <field name="PROP">TimerEnabled</field>
+                        <value name="VALUE">
+                          <block type="logic_boolean" id="4qvl3ZqvEa8OU6dCh3DF">
+                            <field name="BOOL">FALSE</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <statement name="ELSE">
+          <block type="global_declaration_stmt" id="zF1LlYnk7ot3a1MqVnJ7">
+            <field name="NAME">sequenceMode</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="zKgtWiBQzpX2Cnh6Cl1q">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+            <next>
+              <block type="global_declaration_stmt" id="ZvnBVVV5XzHMqDRYMq4c">
+                <field name="NAME">currentExpectedPose</field>
+                <value name="VALUE">
+                  <block type="math_number" id="yDBKQgBgkXXZJfm7zj1k">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="E43XaLKjG7vgLqKzppMp">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="NextPoseLabel"></mutation>
+                    <field name="COMPONENT_SELECTOR">NextPoseLabel</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="XtR3BpWrxVJBkWBq0ujW">
+                        <field name="TEXT">Next Pose: Pose 1</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="component_set_get" id="yiXrQwOHM5Aq2Dn3V4Qm">
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Button" set_or_get="set" property_name="Text" is_generic="false" instance_name="SequenceButton"></mutation>
+                        <field name="COMPONENT_SELECTOR">SequenceButton</field>
+                        <field name="PROP">Text</field>
+                        <value name="VALUE">
+                          <block type="text" id="M8vWrZYkxW7ZKG2zW6mZ">
+                            <field name="TEXT">Stop Pose Sequence</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="component_set_get" id="B9fXgBUe9WRJgaPiTp5G">
+                            <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Clock" set_or_get="set" property_name="TimerEnabled" is_generic="false" instance_name="Clock1"></mutation>
+                            <field name="COMPONENT_SELECTOR">Clock1</field>
+                            <field name="PROP">TimerEnabled</field>
+                            <value name="VALUE">
+                              <block type="logic_boolean" id="e9ztXYP4MxSuUzMUKoZG">
+                                <field name="BOOL">TRUE</field>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="rELmCYTgBCSnSBBRZlYH" x="-910" y="1321">
+    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Clock" is_generic="false" instance_name="Clock1" event_name="Timer"></mutation>
+    <field name="COMPONENT_SELECTOR">Clock1</field>
+    <statement name="DO">
+      <block type="controls_if" id="PTjQnQtSRF8bEzVyBYQE">
+        <value name="IF0">
+          <block type="global_declaration_expr" id="ZnYjMQbMJigHdZpQZWTz">
+            <field name="NAME">sequenceMode</field>
+          </block>
+        </value>
+        <statement name="DO">
+          <block type="controls_if" id="SiZcY9lK3htrLv7KQK4R">
+            <mutation elseif="2"></mutation>
+            <value name="IF0">
+              <block type="logic_operation" id="fKSIPcXnrcYzA4mMUuzf">
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="math_compare" id="SoVEgKf0vfSAJ6oRHPqH">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="global_declaration_expr" id="YuVSLgbLuSX7L04fnD3l">
+                        <field name="NAME">currentExpectedPose</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="QwDzWPCDxJIVCdS6eI0p">
+                        <field name="NUM">1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_compare" id="QKdA9NazmP9L9H0lTRtB">
+                    <field name="OP">=</field>
+                    <value name="A">
+                      <block type="component_set_get" id="D1qCCLWJ7ycjXsYUe7Dh">
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="get" property_name="Text" is_generic="false" instance_name="PoseLabel"></mutation>
+                        <field name="COMPONENT_SELECTOR">PoseLabel</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="text" id="Bb5nz3OcqbfHDw8Pz4qo">
+                        <field name="TEXT">Detected: Pose 1</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO0">
+              <block type="global_declaration_stmt" id="RufX4sLc9U2FfPuOJ2KH">
+                <field name="NAME">currentExpectedPose</field>
+                <value name="VALUE">
+                  <block type="math_number" id="Y1fVNpSRe8fXqBG7KOXW">
+                    <field name="NUM">2</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="3oaHSMYmZngnRQP1M7Ut">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="NextPoseLabel"></mutation>
+                    <field name="COMPONENT_SELECTOR">NextPoseLabel</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="jVr7jkDcaQJRdxKhvOBV">
+                        <field name="TEXT">Next Pose: Pose 2</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <value name="IF1">
+              <block type="logic_operation" id="qfOdDhfZA7d8oKzg9mPh">
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="math_compare" id="WKjjlpGIKlJk3Io4bSfV">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="global_declaration_expr" id="KtAx5ZF8gqxhiPxTbJIX">
+                        <field name="NAME">currentExpectedPose</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="Jy5mRXpLORt29bIhIVYl">
+                        <field name="NUM">2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_compare" id="PPHixNrlGz9k2ZwKgdPl">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="component_set_get" id="o5q1uNVUl9aJfKSiXKwx">
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="get" property_name="Text" is_generic="false" instance_name="PoseLabel"></mutation>
+                        <field name="COMPONENT_SELECTOR">PoseLabel</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="text" id="2GWcnVHYfmwYI8yzUdpD">
+                        <field name="TEXT">Detected: Pose 2</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO1">
+              <block type="global_declaration_stmt" id="2m3HCn2TQnmU8JRPEkDv">
+                <field name="NAME">currentExpectedPose</field>
+                <value name="VALUE">
+                  <block type="math_number" id="q82iGSo8K3KuPKfG2dJu">
+                    <field name="NUM">3</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="oWZYJTnpkiSuVOZC6qIc">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="NextPoseLabel"></mutation>
+                    <field name="COMPONENT_SELECTOR">NextPoseLabel</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="nO0TkTVAeKZZiVj1IZZd">
+                        <field name="TEXT">Next Pose: Pose 3</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <value name="IF2">
+              <block type="logic_operation" id="MXsYBhDMyjdO9j1jXcNz">
+                <field name="OP">AND</field>
+                <value name="A">
+                  <block type="math_compare" id="EH1gNn25A1wvHxlYyUXl">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="global_declaration_expr" id="KDZLPUY9OXHhwcm4RtFp">
+                        <field name="NAME">currentExpectedPose</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="math_number" id="k5nDwOMwxGiCE17oQhLv">
+                        <field name="NUM">3</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="B">
+                  <block type="logic_compare" id="7XxNjIePKl4ufCYrlNMw">
+                    <field name="OP">EQ</field>
+                    <value name="A">
+                      <block type="component_set_get" id="wlwGpw2RPSXJGzXMSA4e">
+                        <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="get" property_name="Text" is_generic="false" instance_name="PoseLabel"></mutation>
+                        <field name="COMPONENT_SELECTOR">PoseLabel</field>
+                        <field name="PROP">Text</field>
+                      </block>
+                    </value>
+                    <value name="B">
+                      <block type="text" id="SyMoPNUf0pZ0fkO2bwxs">
+                        <field name="TEXT">Detected: Pose 3</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO2">
+              <block type="global_declaration_stmt" id="FXcKnWDjQnHsEzgTrGqo">
+                <field name="NAME">currentExpectedPose</field>
+                <value name="VALUE">
+                  <block type="math_number" id="e5NrDMu9Gv8vWGTxJhDt">
+                    <field name="NUM">1</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="component_set_get" id="yX1ZCpBdECvkAiwxVLZE">
+                    <mutation xmlns="http://www.w3.org/1999/xhtml" component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="NextPoseLabel"></mutation>
+                    <field name="COMPONENT_SELECTOR">NextPoseLabel</field>
+                    <field name="PROP">Text</field>
+                    <value name="VALUE">
+                      <block type="text" id="wVRRPNdP2H84gwnkvbZf">
+                        <field name="TEXT">Next Pose: Pose 1</field>
+                      </block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </statement>
+      </block>
+    </statement>
+  </block>
+<yacodeblocks xmlns="http://www.w3.org/1999/xhtml" ya-version="231" language-version="37"></yacodeblocks></xml>

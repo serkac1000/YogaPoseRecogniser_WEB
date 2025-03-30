@@ -1,0 +1,28 @@
+2025-03-26 07:33:22.496166: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: SSE3 SSE4.1 SSE4.2 AVX AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+^CTraceback (most recent call last):
+  File "/home/runner/workspace/debug_pose.py", line 4, in <module>
+    import tensorflow as tf
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/__init__.py", line 52, in <module>
+    from ._api.v2 import compat
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/_api/v2/compat/__init__.py", line 37, in <module>
+    from . import v1
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v1/__init__.py", line 31, in <module>
+    from . import compat
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v1/compat/__init__.py", line 38, in <module>
+    from . import v2
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v1/compat/v2/__init__.py", line 28, in <module>
+    from tensorflow._api.v2.compat.v2 import __internal__
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/__init__.py", line 33, in <module>
+    from . import compat
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/compat/__init__.py", line 38, in <module>
+    from . import v2
+  File "/nix/store/rxpxd84mvf0yh0mmpx3zzrnnakmn2zi3-python3.11-tensorflow-2.13.0/lib/python3.11/site-packages/tensorflow/_api/v2/compat/v2/compat/v2/__init__.py", line 50, in <module>
+    from tensorflow._api.v2.compat.v2 import nest
+  File "<frozen importlib._bootstrap>", line 1176, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 1147, in _find_and_load_unlocked
+  File "<frozen importlib._bootstrap>", line 690, in _load_unlocked
+  File "<frozen importlib._bootstrap_external>", line 936, in exec_module
+  File "<frozen importlib._bootstrap_external>", line 1032, in get_code
+  File "<frozen importlib._bootstrap_external>", line 1130, in get_data
+KeyboardInterrupt

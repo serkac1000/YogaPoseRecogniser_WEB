@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .star {
+      fill: #FFD700;
+      stroke: #DAA520;
+      stroke-width: 2;
+      transform-origin: center;
+      animation: pulse 1.5s infinite alternate;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      100% { transform: scale(1.1); opacity: 1; }
+    }
+  </style>
+  <path class="star" 
+    d="M100,10 L123.5,58.8 L177.6,68.2 L138.8,105.8 L149.5,159.3 L100,134.2 L50.5,159.3 L61.2,105.8 L22.4,68.2 L76.5,58.8 Z" />
+</svg>
