@@ -1,0 +1,1 @@
+[{"contentProviders":[],"metadata":[],"broadcastReceivers":[],"broadcastReceiver":[],"libraries":[],"services":[],"type":"edu.mit.appinventor.ai.teachablemachine.TeachableMachine","androidMinSdk":["7"],"activityMetadata":[],"queries":[],"assets":["teachable_machine.js","teachable_machine.html"],"native":[],"permissions":["android.permission.CAMERA"],"activities":[]}]
