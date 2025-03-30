@@ -1,0 +1,20 @@
+#
+#Wed Mar 30 13:27:00 UTC 2025
+sizing=Responsive
+tutorialurl=http\://appinventor.mit.edu/yrtoolkit/yr/tutorials/PICaboo.html
+color.primary.dark=&HFF303F9F
+color.primary=&HFF3F51B5
+color.accent=&HFFFF4081
+aname=YogaPoseRecognizer_Debug
+defaultfilescope=App
+main=appinventor.ai_serkac100.AItreneF3pose_TEACHABLEMACHINE.Screen1
+source=../src
+actionbar=False
+useslocation=False
+assets=../assets
+build=../build
+name=YogaPoseRecognizer_Debug
+showlistsasjson=True
+theme=Classic
+versioncode=2
+versionname=1.1.1

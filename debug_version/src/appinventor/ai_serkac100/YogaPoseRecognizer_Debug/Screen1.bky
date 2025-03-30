@@ -1,0 +1,251 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <block type="global_declaration" id="GlobalLogsVariable" x="-1700" y="-700">
+    <field name="NAME">LogsText</field>
+    <value name="VALUE">
+      <block type="text" id="LogsTextInitValue">
+        <field name="TEXT"></field>
+      </block>
+    </value>
+  </block>
+  <block type="global_declaration" id="GlobalDebugEnabled" x="-1700" y="-650">
+    <field name="NAME">DebugEnabled</field>
+    <value name="VALUE">
+      <block type="logic_boolean" id="DebugEnabledInitValue">
+        <field name="BOOL">FALSE</field>
+      </block>
+    </value>
+  </block>
+  <block type="component_event" id="ScreenInitializeEvent" x="-1400" y="-700">
+    <mutation component_type="Form" is_generic="false" instance_name="Screen1" event_name="Initialize"></mutation>
+    <field name="COMPONENT_SELECTOR">Screen1</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="CallLogDebugInfo">
+        <mutation name="LogDebugInfo">
+          <arg name="message"></arg>
+        </mutation>
+        <value name="ARG0">
+          <block type="text" id="ScreenInitializeMsg">
+            <field name="TEXT">App started. Initializing components...</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="SetDebugCheckboxChecked">
+            <mutation component_type="CheckBox" set_or_get="set" property_name="Checked" is_generic="false" instance_name="DebugCheckbox"></mutation>
+            <field name="COMPONENT_SELECTOR">DebugCheckbox</field>
+            <field name="PROP">Checked</field>
+            <value name="VALUE">
+              <block type="lexical_variable_get" id="GetDebugEnabled">
+                <field name="VAR">global DebugEnabled</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="DebugCheckboxChanged" x="-900" y="-700">
+    <mutation component_type="CheckBox" is_generic="false" instance_name="DebugCheckbox" event_name="Changed"></mutation>
+    <field name="COMPONENT_SELECTOR">DebugCheckbox</field>
+    <statement name="DO">
+      <block type="lexical_variable_set" id="SetDebugEnabledFromCheckbox">
+        <field name="VAR">global DebugEnabled</field>
+        <value name="VALUE">
+          <block type="component_set_get" id="GetDebugCheckboxChecked">
+            <mutation component_type="CheckBox" set_or_get="get" property_name="Checked" is_generic="false" instance_name="DebugCheckbox"></mutation>
+            <field name="COMPONENT_SELECTOR">DebugCheckbox</field>
+            <field name="PROP">Checked</field>
+          </block>
+        </value>
+        <next>
+          <block type="procedures_callnoreturn" id="CallLogDebugInfoCheckbox">
+            <mutation name="LogDebugInfo">
+              <arg name="message"></arg>
+            </mutation>
+            <value name="ARG0">
+              <block type="text_join" id="ConcatDebugStatusMsg">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                  <block type="text" id="DebugStatusPrefix">
+                    <field name="TEXT">Debug mode: </field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="logic_ternary" id="DebugStatusTernary">
+                    <value name="IF">
+                      <block type="lexical_variable_get" id="GetDebugEnabledForStatus">
+                        <field name="VAR">global DebugEnabled</field>
+                      </block>
+                    </value>
+                    <value name="THEN">
+                      <block type="text" id="EnabledText">
+                        <field name="TEXT">Enabled</field>
+                      </block>
+                    </value>
+                    <value name="ELSE">
+                      <block type="text" id="DisabledText">
+                        <field name="TEXT">Disabled</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="ClearLogsButtonClick" x="-400" y="-700">
+    <mutation component_type="Button" is_generic="false" instance_name="ClearLogsButton" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">ClearLogsButton</field>
+    <statement name="DO">
+      <block type="lexical_variable_set" id="ResetLogsText">
+        <field name="VAR">global LogsText</field>
+        <value name="VALUE">
+          <block type="text" id="EmptyText">
+            <field name="TEXT"></field>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="UpdateLogsLabel">
+            <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="LogsLabel"></mutation>
+            <field name="COMPONENT_SELECTOR">LogsLabel</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text" id="LogsClearedText">
+                <field name="TEXT">Logs cleared.</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="DefLogDebugInfo" x="-1700" y="-300">
+    <mutation>
+      <arg name="message" id="LogMessageParam"></arg>
+    </mutation>
+    <field name="NAME">LogDebugInfo</field>
+    <field name="VAR0">message</field>
+    <statement name="STACK">
+      <block type="lexical_variable_set" id="AppendToLogsText">
+        <field name="VAR">global LogsText</field>
+        <value name="VALUE">
+          <block type="text_join" id="ConcatLogEntry">
+            <mutation items="5"></mutation>
+            <value name="ADD0">
+              <block type="lexical_variable_get" id="GetExistingLogs">
+                <field name="VAR">global LogsText</field>
+              </block>
+            </value>
+            <value name="ADD1">
+              <block type="clock_time" id="GetCurrentTime">
+                <mutation type="text"></mutation>
+                <field name="CLOCK_SELECTOR">Clock1</field>
+                <field name="TIME_FORM">TEXT</field>
+              </block>
+            </value>
+            <value name="ADD2">
+              <block type="text" id="TimeSeparator">
+                <field name="TEXT">: </field>
+              </block>
+            </value>
+            <value name="ADD3">
+              <block type="lexical_variable_get" id="GetLogMessage">
+                <field name="VAR">message</field>
+              </block>
+            </value>
+            <value name="ADD4">
+              <block type="text" id="NewlineChar">
+                <field name="TEXT">&#10;</field>
+              </block>
+            </value>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="UpdateLogsLabelWithMessage">
+            <mutation component_type="Label" set_or_get="set" property_name="Text" is_generic="false" instance_name="LogsLabel"></mutation>
+            <field name="COMPONENT_SELECTOR">LogsLabel</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="lexical_variable_get" id="GetUpdatedLogsText">
+                <field name="VAR">global LogsText</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="procedures_defnoreturn" id="DefSaveLogsToFile" x="-1200" y="-300">
+    <mutation></mutation>
+    <field name="NAME">SaveLogsToFile</field>
+    <statement name="STACK">
+      <block type="component_method" id="SaveLogsToTextFile">
+        <mutation component_type="File" method_name="SaveFile" is_generic="false" instance_name="File1"></mutation>
+        <field name="COMPONENT_SELECTOR">File1</field>
+        <value name="ARG0">
+          <block type="text" id="LogsFilename">
+            <field name="TEXT">YogaPoseRecognizerLogs.txt</field>
+          </block>
+        </value>
+        <value name="ARG1">
+          <block type="lexical_variable_get" id="GetLogsForSaving">
+            <field name="VAR">global LogsText</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_method" id="NotifyLogsSaved">
+            <mutation component_type="Notifier" method_name="ShowAlert" is_generic="false" instance_name="Notifier1"></mutation>
+            <field name="COMPONENT_SELECTOR">Notifier1</field>
+            <value name="ARG0">
+              <block type="text" id="LogsSavedMessage">
+                <field name="TEXT">Logs saved to YogaPoseRecognizerLogs.txt</field>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="TeachableMachineReady" x="-879" y="-470">
+    <mutation component_type="TeachableMachine" is_generic="false" instance_name="TeachableMachine1" event_name="ClassifierReady"></mutation>
+    <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+    <statement name="DO">
+      <block type="procedures_callnoreturn" id="LogTeachableMachineReady">
+        <mutation name="LogDebugInfo">
+          <arg name="message"></arg>
+        </mutation>
+        <value name="ARG0">
+          <block type="text" id="TeachableMachineReadyMsg">
+            <field name="TEXT">Teachable Machine classifier is ready</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="EnableStartButton">
+            <mutation component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="StartButton"></mutation>
+            <field name="COMPONENT_SELECTOR">StartButton</field>
+            <field name="PROP">Enabled</field>
+            <value name="VALUE">
+              <block type="logic_boolean" id="StartButtonTrue">
+                <field name="BOOL">TRUE</field>
+              </block>
+            </value>
+            <next>
+              <block type="component_set_get" id="EnableToggleCameraButton">
+                <mutation component_type="Button" set_or_get="set" property_name="Enabled" is_generic="false" instance_name="ToggleCameraButton"></mutation>
+                <field name="COMPONENT_SELECTOR">ToggleCameraButton</field>
+                <field name="PROP">Enabled</field>
+                <value name="VALUE">
+                  <block type="logic_boolean" id="ToggleCameraButtonTrue">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+</xml>
