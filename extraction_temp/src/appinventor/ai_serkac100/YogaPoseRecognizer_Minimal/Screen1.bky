@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xml xmlns="http://www.w3.org/1999/xhtml">
+  <block type="component_event" id="2" x="20" y="20">
+    <mutation component_type="TeachableMachine" instance_name="TeachableMachine1" event_name="GotResult"></mutation>
+    <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+    <statement name="DO">
+      <block type="component_set_get" id="3">
+        <mutation component_type="Label" instance_name="PoseLabel" property_name="Text"></mutation>
+        <field name="COMPONENT_SELECTOR">PoseLabel</field>
+        <field name="PROP">Text</field>
+        <value name="VALUE">
+          <block type="lexical_variable_get" id="4">
+            <field name="VAR">className</field>
+          </block>
+        </value>
+        <next>
+          <block type="component_set_get" id="5">
+            <mutation component_type="Label" instance_name="ConfidenceLabel" property_name="Text"></mutation>
+            <field name="COMPONENT_SELECTOR">ConfidenceLabel</field>
+            <field name="PROP">Text</field>
+            <value name="VALUE">
+              <block type="text_join" id="6">
+                <mutation items="2"></mutation>
+                <value name="ADD0">
+                  <block type="text" id="7">
+                    <field name="TEXT">Confidence: </field>
+                  </block>
+                </value>
+                <value name="ADD1">
+                  <block type="text_join" id="8">
+                    <mutation items="2"></mutation>
+                    <value name="ADD0">
+                      <block type="math_multiply" id="9">
+                        <value name="A">
+                          <block type="lexical_variable_get" id="10">
+                            <field name="VAR">value</field>
+                          </block>
+                        </value>
+                        <value name="B">
+                          <block type="math_number" id="11">
+                            <field name="NUM">100</field>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="ADD1">
+                      <block type="text" id="12">
+                        <field name="TEXT">%</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="13" x="20" y="320">
+    <mutation component_type="TeachableMachine" instance_name="TeachableMachine1" event_name="ModelInitialized"></mutation>
+    <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+    <statement name="DO">
+      <block type="component_set_get" id="14">
+        <mutation component_type="Button" instance_name="StartButton" property_name="Enabled"></mutation>
+        <field name="COMPONENT_SELECTOR">StartButton</field>
+        <field name="PROP">Enabled</field>
+        <value name="VALUE">
+          <block type="logic_boolean" id="15">
+            <field name="BOOL">TRUE</field>
+          </block>
+        </value>
+      </block>
+    </statement>
+  </block>
+  <block type="component_event" id="16" x="20" y="420">
+    <mutation component_type="Button" instance_name="StartButton" event_name="Click"></mutation>
+    <field name="COMPONENT_SELECTOR">StartButton</field>
+    <statement name="DO">
+      <block type="component_method" id="17">
+        <mutation component_type="TeachableMachine" instance_name="TeachableMachine1" method_name="StartObjectDetection"></mutation>
+        <field name="COMPONENT_SELECTOR">TeachableMachine1</field>
+      </block>
+    </statement>
+  </block>
+</xml>
