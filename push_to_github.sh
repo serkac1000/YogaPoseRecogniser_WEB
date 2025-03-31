@@ -33,7 +33,7 @@ git add .
 
 # Commit changes
 echo "Committing changes..."
-git commit -m "Initial commit: Yoga Pose Recognizer Web Application"
+git commit -m "Release 2.0: Added 3-2-1 countdown animation and mirroring"
 
 # Add remote origin if not already added
 if ! git remote | grep -q origin; then
