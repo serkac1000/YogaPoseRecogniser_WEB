@@ -1,16 +1,22 @@
 #!/bin/bash
 
 # Script to push the Yoga Pose Recognizer to GitHub
-# This script assumes you have Git installed and configured
+# This script uses the GITHUB_TOKEN environment variable for authentication
 
 # Configuration
-GITHUB_REPO="https://github.com/serkac1000/YogaPoseRecogniser_WEB.git"
+GITHUB_USER="serkac1000"
+REPO_NAME="YogaPoseRecogniser_WEB"
 BRANCH="main"
+GITHUB_REPO_URL="https://$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
 
 # Ensure the script stops on errors
 set -e
 
 echo "=== Preparing Yoga Pose Recognizer for GitHub ==="
+
+# Set Git identity (using generic info since we're using token auth)
+git config --global user.name "GitHub Actions"
+git config --global user.email "actions@github.com"
 
 # Initialize git repository if not already initialized
 if [ ! -d .git ]; then
@@ -32,14 +38,15 @@ git commit -m "Initial commit: Yoga Pose Recognizer Web Application"
 # Add remote origin if not already added
 if ! git remote | grep -q origin; then
   echo "Adding remote origin..."
-  git remote add origin $GITHUB_REPO
+  git remote add origin $GITHUB_REPO_URL
 else
-  echo "Remote origin already exists."
+  echo "Remote origin already exists, updating URL to use token..."
+  git remote set-url origin $GITHUB_REPO_URL
 fi
 
-# Push to GitHub
+# Push to GitHub using token
 echo "Pushing to GitHub repository..."
-git push -u origin $BRANCH
+git push -u origin $BRANCH --force
 
 echo "=== Push to GitHub completed! ==="
-echo "Visit your repository at: $GITHUB_REPO"
+echo "Visit your repository at: https://github.com/$GITHUB_USER/$REPO_NAME"
