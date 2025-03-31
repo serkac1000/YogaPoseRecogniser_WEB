@@ -4,8 +4,8 @@
 # Creates a clean release package with only necessary files
 
 # Set version
-VERSION="3.0.0"
-RELEASE_DIR="release_v3.0.0"
+VERSION="4.0.0"
+RELEASE_DIR="release_v4.0.0"
 
 # Create release directory if it doesn't exist
 mkdir -p $RELEASE_DIR
@@ -41,42 +41,6 @@ node_modules/
 dist/
 build/
 .cache/
-EOL
-
-# Create README specifically for the web release
-cat > $RELEASE_DIR/README.md << EOL
-# YogaPoseRecognizer Web Application v${VERSION}
-
-A cross-platform web application for yoga pose recognition using TensorFlow.js and pose detection models.
-
-## Features
-- Real-time yoga pose recognition with visual feedback
-- Skeleton-based visualization of body position
-- Sequential pose practice with automatic advancement
-- User-configurable model URL and pose images
-- Settings persistence across sessions
-- Demo mode when camera access is unavailable
-
-## Quick Start
-1. Install dependencies:
-\`\`\`
-npm install
-\`\`\`
-
-2. Start the application:
-\`\`\`
-npm run dev
-\`\`\`
-
-3. Open your browser to http://localhost:5000
-
-## Configuration
-You can configure the application settings through the Settings page:
-- Model URL: Link to your TensorFlow.js model
-- Pose Images: Custom images for each yoga pose
-
-## Credits
-Created with TensorFlow.js and Google's Teachable Machine
 EOL
 
 # Create a zip archive
