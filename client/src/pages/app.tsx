@@ -8,6 +8,7 @@ import StarAnimation from "@/components/StarAnimation";
 import { useLocation } from "wouter";
 import { Settings } from "lucide-react";
 import { loadSettings } from "@/lib/storage";
+import { Progress } from "@/components/ui/progress";
 
 export default function AppPage() {
   const { toast } = useToast();
@@ -17,6 +18,9 @@ export default function AppPage() {
   const [detectedPose, setDetectedPose] = useState<string | null>(null);
   const [showStar, setShowStar] = useState(false);
   const [confidenceLevel, setConfidenceLevel] = useState(0);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [countdownValue, setCountdownValue] = useState(3);
+  const [countdownProgress, setCountdownProgress] = useState(100);
   
   // Check for saved settings on component mount
   useEffect(() => {
@@ -39,6 +43,8 @@ export default function AppPage() {
   const handleStop = () => {
     setIsActive(false);
     setConfidenceLevel(0);
+    setShowCountdown(false);
+    setShowStar(false);
     toast({
       title: "Yoga Recognition Stopped",
       description: "Take a break, you've done great!",
@@ -50,22 +56,39 @@ export default function AppPage() {
     setConfidenceLevel(confidence);
     
     // Check if detected pose matches the expected pose in the sequence
-    if (pose === `Pose${currentExpectedPose}` && confidence >= 0.5) {
+    if (pose === `Pose${currentExpectedPose}` && confidence >= 0.5 && !showCountdown) {
       // Show the star animation
       setShowStar(true);
-      
-      // Reset star after animation completes
-      setTimeout(() => {
-        setShowStar(false);
-      }, 2000);
       
       toast({
         title: `Pose ${currentExpectedPose} Detected!`,
         description: `Great job! Confidence: ${(confidence * 100).toFixed(0)}%`,
       });
       
-      // Advance to the next pose in the sequence (1 -> 2 -> 3 -> 1)
-      setCurrentExpectedPose(prev => prev < 3 ? prev + 1 : 1);
+      // Start the countdown animation
+      setShowCountdown(true);
+      setCountdownValue(3);
+      setCountdownProgress(100);
+      
+      // Create the countdown animation
+      let count = 3;
+      const countdownInterval = setInterval(() => {
+        count--;
+        setCountdownValue(count);
+        setCountdownProgress((count / 3) * 100);
+        
+        if (count === 0) {
+          // When countdown reaches 0, clear interval and advance to next pose
+          clearInterval(countdownInterval);
+          setTimeout(() => {
+            setShowCountdown(false);
+            setShowStar(false);
+            
+            // Advance to the next pose in the sequence (1 -> 2 -> 3 -> 1)
+            setCurrentExpectedPose(prev => prev < 3 ? prev + 1 : 1);
+          }, 500);
+        }
+      }, 1000);
     }
   };
 
@@ -99,6 +122,17 @@ export default function AppPage() {
             {showStar && (
               <div className="absolute inset-0 flex items-center justify-center z-10">
                 <StarAnimation />
+              </div>
+            )}
+            
+            {/* Countdown animation */}
+            {showCountdown && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-20 bg-black/60">
+                <div className="text-8xl font-bold text-white mb-4">{countdownValue}</div>
+                <div className="w-1/2">
+                  <Progress value={countdownProgress} className="h-4" />
+                </div>
+                <div className="text-white mt-4">Get ready for next pose!</div>
               </div>
             )}
             

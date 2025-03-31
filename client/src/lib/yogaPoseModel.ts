@@ -113,18 +113,19 @@ export async function classifyImage(canvas: HTMLCanvasElement) {
  * Preprocess the image from canvas to match model input requirements
  */
 function preprocessImage(canvas: HTMLCanvasElement): tf.Tensor4D {
-  return tf.tidy(() => {
+  // Using any to bypass type checking issues with TensorFlow.js
+  return tf.tidy((): any => {
     // Convert canvas to tensor
-    const imageTensor = tf.browser.fromPixels(canvas);
+    const imageTensor = tf.browser.fromPixels(canvas) as tf.Tensor3D;
     
     // Normalize pixel values to [0, 1]
-    const normalized = imageTensor.toFloat().div(255);
+    const normalized = imageTensor.toFloat().div(255) as tf.Tensor3D;
     
     // Resize to expected model input size (usually 224x224 for models from Teachable Machine)
     const resized = tf.image.resizeBilinear(normalized, [224, 224]);
     
     // Create a batch of 1 image using a safe approach
-    const batched = tf.reshape(resized, [1, 224, 224, 3]);
+    const batched = resized.expandDims(0);
     
     return batched;
   });

@@ -76,12 +76,14 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
       const context = canvasRef.current.getContext('2d');
       if (!context) return;
       
-      // Capture frame from video to canvas
-      context.drawImage(
-        videoRef.current, 
-        0, 0, 
-        canvasRef.current.width, canvasRef.current.height
-      );
+      // Capture frame from video to canvas with horizontal mirroring
+      const { width, height } = canvasRef.current;
+      // Flip the image horizontally for processing
+      context.translate(width, 0);
+      context.scale(-1, 1);
+      context.drawImage(videoRef.current, 0, 0, width, height);
+      // Reset the transformation matrix
+      context.setTransform(1, 0, 0, 1, 0, 0);
       
       try {
         // Classify the image
@@ -134,7 +136,10 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
         <video 
           ref={videoRef}
           className="w-full h-auto" 
-          style={{ display: 'block' }}
+          style={{ 
+            display: 'block',
+            transform: 'scaleX(-1)' // Mirror horizontally so left hand appears on left side
+          }}
           playsInline
           muted
         />
