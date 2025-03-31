@@ -1,52 +1,63 @@
 #!/bin/bash
 
-# Script to push the Yoga Pose Recognizer to GitHub
-# This script uses the GITHUB_TOKEN environment variable for authentication
+# Script to push YogaPoseRecognizer project to GitHub
+# Requires GITHUB_TOKEN to be set in environment variables
 
-# Configuration
-GITHUB_USER="serkac1000"
-REPO_NAME="YogaPoseRecogniser_WEB"
-BRANCH="main"
-GITHUB_REPO_URL="https://$GITHUB_TOKEN@github.com/$GITHUB_USER/$REPO_NAME.git"
-
-# Ensure the script stops on errors
-set -e
-
-echo "=== Preparing Yoga Pose Recognizer for GitHub ==="
-
-# Set Git identity (using generic info since we're using token auth)
-git config --global user.name "GitHub Actions"
-git config --global user.email "actions@github.com"
-
-# Initialize git repository if not already initialized
-if [ ! -d .git ]; then
-  echo "Initializing git repository..."
-  git init
-  echo "Git repository initialized."
-else
-  echo "Git repository already initialized."
+# Check if GITHUB_TOKEN is available
+if [ -z "$GITHUB_TOKEN" ]; then
+  echo "Error: GITHUB_TOKEN environment variable is not set"
+  echo "Please set your GitHub token as a secret in Replit."
+  exit 1
 fi
 
-# Add all files
-echo "Adding files to git..."
+# Set GitHub repository information
+REPO_NAME="YogaPoseRecognizer"
+VERSION="v3.0.0"
+COMMIT_MESSAGE="Release $VERSION: Added skeleton visualization and demo mode"
+
+# Configure Git credentials using token
+git config --global user.name "Replit User"
+git config --global user.email "replituser@example.com"
+git config --global credential.helper store
+echo "https://oauth2:${GITHUB_TOKEN}@github.com" > ~/.git-credentials
+
+# Initialize Git repository if not already initialized
+if [ ! -d .git ]; then
+  echo "Initializing Git repository..."
+  git init
+  
+  # Create .gitignore file
+  echo "Creating .gitignore file..."
+  cat > .gitignore << EOL
+node_modules/
+.env
+.DS_Store
+*.log
+dist/
+build/
+.cache/
+EOL
+fi
+
+# Add all files to Git
+echo "Adding files to Git..."
 git add .
 
 # Commit changes
 echo "Committing changes..."
-git commit -m "Release 2.0: Added 3-2-1 countdown animation and mirroring"
+git commit -m "$COMMIT_MESSAGE"
 
-# Add remote origin if not already added
-if ! git remote | grep -q origin; then
+# Check if remote origin exists, add if not
+if ! git remote | grep -q "origin"; then
   echo "Adding remote origin..."
-  git remote add origin $GITHUB_REPO_URL
-else
-  echo "Remote origin already exists, updating URL to use token..."
-  git remote set-url origin $GITHUB_REPO_URL
+  git remote add origin "https://github.com/YOUR_USERNAME/$REPO_NAME.git"
+  echo "Please update the repository URL in this script with your actual GitHub username"
 fi
 
-# Push to GitHub using token
-echo "Pushing to GitHub repository..."
-git push -u origin $BRANCH --force
+# Push to GitHub
+echo "Pushing to GitHub..."
+git push -u origin main || git push -u origin master
 
-echo "=== Push to GitHub completed! ==="
-echo "Visit your repository at: https://github.com/$GITHUB_USER/$REPO_NAME"
+echo "Push completed!"
+echo "Remember to replace 'YOUR_USERNAME' in the script with your actual GitHub username."
+echo "Version $VERSION uploaded successfully."
