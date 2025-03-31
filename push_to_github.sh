@@ -50,7 +50,7 @@ git commit -m "$COMMIT_MESSAGE"
 # Check if remote origin exists, add if not
 if ! git remote | grep -q "origin"; then
   echo "Adding remote origin..."
-  git remote add origin "https://github.com/YOUR_USERNAME/$REPO_NAME.git"
+  git remote add origin "https://github.com/$GITHUB_USERNAME/$REPO_NAME.git"
   echo "Please update the repository URL in this script with your actual GitHub username"
 fi
 
