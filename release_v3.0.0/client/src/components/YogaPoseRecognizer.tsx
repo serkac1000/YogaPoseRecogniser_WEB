@@ -239,17 +239,17 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
 
           // Improve confidence verification:
           // Only update if confidence is above a minimum threshold to avoid flickering
-          const minConfidenceThreshold = 0.9; // Increased threshold
+          const minConfidenceThreshold = 0.95; // Increased threshold
           if (probability >= minConfidenceThreshold) {
             // Update state with the detected pose and its confidence
             setCurrentPose(className);
             setConfidence(probability);
 
             // Show star animation if confidence is above threshold
-            setShowStar(probability >= 0.9); // Increased threshold
+            setShowStar(probability >= 0.95); // Increased threshold
 
             // Only report pose to parent if we're confident
-            if (probability >= 0.9) { // Increased threshold
+            if (probability >= 0.95) { // Increased threshold
               onPoseDetected(className, probability);
             }
           }
@@ -265,7 +265,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
     // Only run skeleton detection if pose detector is available
     if (poseDetector) {
       const renderSkeleton = async () => {
-        if (!videoRef.current || !skeletonCanvasRef.current) return;
+        if (!videoRef.current || !skeletonCanvasRef.current || !poseDetector) return;
 
         try {
           // Detect poses
@@ -347,8 +347,8 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
         {isActive && (
           <div className="absolute bottom-4 left-4 right-4 bg-black/70 text-white p-2 rounded">
             <p className="text-center">
-              {confidence >= 0.9 
-                ? `${currentPose} Detected! (${(confidence * 100).toFixed(0)}%)` 
+              {confidence >= 0.95
+                ? `${currentPose} Detected! (${(confidence * 100).toFixed(0)}%)`
                 : 'No Pose Detected'}
             </p>
           </div>
@@ -412,7 +412,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
       {isActive && (
         <div className="absolute bottom-4 left-4 right-4 bg-black/70 text-white p-2 rounded">
           <p className="text-center">
-            {confidence >= 0.9
+            {confidence >= 0.95
               ? `${currentPose} Detected! (${(confidence * 100).toFixed(0)}%)`
               : 'No Pose Detected'}
           </p>
