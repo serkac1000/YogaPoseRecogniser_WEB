@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 interface DemoSkeletonProps {
   isActive: boolean;
@@ -7,7 +7,7 @@ interface DemoSkeletonProps {
 // This component displays a simulated skeleton animation when camera access isn't available
 export default function DemoSkeleton({ isActive }: DemoSkeletonProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [animationFrame, setAnimationFrame] = useState<number | null>(null);
+  const frameIdRef = useRef<number | null>(null);
   
   // Animation state variables
   const animationState = useRef({
@@ -56,7 +56,8 @@ export default function DemoSkeleton({ isActive }: DemoSkeletonProps) {
   
   // Function to animate the skeleton in a yoga pose
   useEffect(() => {
-    if (!isActive || !canvasRef.current) return;
+    // Always run animation, regardless of isActive state for demo mode
+    if (!canvasRef.current) return;
     
     const canvas = canvasRef.current;
     const ctx = canvas.getContext('2d');
@@ -123,22 +124,21 @@ export default function DemoSkeleton({ isActive }: DemoSkeletonProps) {
         ctx.stroke();
       });
       
-      // Request next frame
-      const frameId = requestAnimationFrame(animate);
-      setAnimationFrame(frameId);
+      // Request next frame using ref to avoid state updates
+      frameIdRef.current = requestAnimationFrame(animate);
     };
     
     // Start animation
-    const frameId = requestAnimationFrame(animate);
-    setAnimationFrame(frameId);
+    frameIdRef.current = requestAnimationFrame(animate);
     
-    // Cleanup animation on unmount or when isActive changes
+    // Cleanup animation on unmount
     return () => {
-      if (animationFrame !== null) {
-        cancelAnimationFrame(animationFrame);
+      if (frameIdRef.current !== null) {
+        cancelAnimationFrame(frameIdRef.current);
+        frameIdRef.current = null;
       }
     };
-  }, [isActive, animationFrame]);
+  }, []);
   
   return (
     <canvas 
