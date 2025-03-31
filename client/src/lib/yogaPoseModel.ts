@@ -2,16 +2,41 @@ import * as tf from '@tensorflow/tfjs';
 
 // Default model URL - this would typically come from Teachable Machine
 // We're using the same model URL as in the MIT App Inventor version
-const MODEL_URL = 'https://teachablemachine.withgoogle.com/models/gIF64n3nR/';
+let MODEL_URL = 'https://teachablemachine.withgoogle.com/models/gIF64n3nR/';
 
 let model: tf.LayersModel | null = null;
 let labels: string[] = [];
+
+/**
+ * Sets a new model URL
+ */
+export function setModelURL(url: string) {
+  if (url && url.trim() !== '') {
+    // Ensure URL ends with a trailing slash
+    MODEL_URL = url.endsWith('/') ? url : `${url}/`;
+    console.log('Model URL updated to:', MODEL_URL);
+    // Reset the model so it will be reloaded with the new URL
+    model = null;
+  }
+}
+
+/**
+ * Gets the current model URL
+ */
+export function getModelURL() {
+  return MODEL_URL;
+}
 
 /**
  * Loads the TensorFlow.js model
  */
 export async function loadModel() {
   try {
+    // If model is already loaded, don't reload it
+    if (model) {
+      return true;
+    }
+
     console.log('Loading model from:', MODEL_URL);
     
     // Load the model and metadata
@@ -89,10 +114,10 @@ function preprocessImage(canvas: HTMLCanvasElement) {
     const normalized = imageTensor.toFloat().div(tf.scalar(255));
     
     // Resize to expected model input size (usually 224x224 for Teachable Machine)
-    const resized = tf.image.resizeBilinear(normalized, [224, 224]);
+    const resized = tf.image.resizeBilinear(normalized, [224, 224]) as tf.Tensor3D;
     
     // Expand dimensions to create a batch of 1 image
-    const batched = resized.expandDims(0);
+    const batched = resized.expandDims(0) as tf.Tensor4D;
     
     return batched;
   });
