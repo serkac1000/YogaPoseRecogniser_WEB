@@ -68,7 +68,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
     };
   }, []);
 
-  // Camera setup effect
+  // Camera setup effect - now depends on isActive
   useEffect(() => {
     if (!modelLoaded) return;
     
@@ -76,6 +76,17 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
     const maxAttempts = 3;
     
     const setupCamera = async () => {
+      // If recognition is not active, don't access the camera
+      if (!isActive) {
+        // Stop any existing stream
+        if (videoRef.current?.srcObject) {
+          const tracks = (videoRef.current.srcObject as MediaStream).getTracks();
+          tracks.forEach(track => track.stop());
+          videoRef.current.srcObject = null;
+        }
+        return;
+      }
+      
       try {
         // First check if getUserMedia is available
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
@@ -127,7 +138,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
         tracks.forEach(track => track.stop());
       }
     };
-  }, [modelLoaded]);
+  }, [modelLoaded, isActive]); // Added isActive as a dependency
 
   // Function to draw skeleton on the canvas
   const drawSkeleton = (
