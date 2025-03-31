@@ -1,5 +1,12 @@
 # YogaPoseRecognizer Release Notes
 
+## Version 4.0.0 (Current)
+- Improved pose recognition accuracy with enhanced confidence thresholds
+- Added multi-pose detection capabilities
+- Implemented real-time skeleton visualization
+- Added sequential pose practice with 3-second hold requirement
+- Enhanced feedback system showing confidence levels for multiple poses
+
 ## Version 3.0.0 (March 31, 2025)
 - Added TensorFlow pose detection that shows body joints with green skeleton overlay
 - Created robust fallback demo mode with simulated skeleton animation when camera access is unavailable
