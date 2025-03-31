@@ -1,30 +1,21 @@
 #!/bin/bash
 
-# Create release directory if it doesn't exist
-mkdir -p releases/web_app
+# Script to prepare the yoga pose recognizer web app for GitHub
 
-# Create a temporary directory for the web app files
-mkdir -p temp_web_app
+# Create the dist directory if it doesn't exist
+mkdir -p dist
 
-# Copy relevant files to the temporary directory
-cp -r client temp_web_app/
-cp -r server temp_web_app/
-cp -r shared temp_web_app/
-cp package.json temp_web_app/
-cp tsconfig.json temp_web_app/
-cp vite.config.ts temp_web_app/
-cp postcss.config.js temp_web_app/
-cp tailwind.config.ts temp_web_app/
-cp theme.json temp_web_app/
-cp drizzle.config.ts temp_web_app/
-cp WEB_APP_README.md temp_web_app/README.md
+# Build the application
+echo "Building the application..."
+npm run build
 
-# Create the zip file
-cd temp_web_app
-zip -r ../releases/web_app/YogaPoseRecognizer_Web_v1.1.zip .
-cd ..
+# Copy necessary files to the dist directory
+echo "Copying files to dist directory..."
+cp -r dist/* dist/
+cp README.md dist/
+cp package.json dist/
+cp -r client/index.html dist/
+cp -r client/src/assets dist/assets
 
-# Clean up
-rm -rf temp_web_app
-
-echo "Web application release created at releases/web_app/YogaPoseRecognizer_Web_v1.1.zip"
+echo "Project prepared for GitHub release!"
+echo "You can now push the contents to your repository."

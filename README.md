@@ -1,54 +1,86 @@
-# Yoga Pose Recognizer App
+# Yoga Pose Recognizer Web Application
 
-An innovative yoga application available in two versions: a mobile application using MIT App Inventor and a web application using modern web technologies. Both leverage Teachable Machine AI to provide an intelligent, interactive yoga learning experience for practitioners of all levels.
+A modern web application for yoga pose recognition using TensorFlow.js and Teachable Machine models. This application allows users to practice yoga poses in sequence while getting real-time feedback on their form.
 
 ## Features
 
-- Real-time yoga pose recognition using AI models
-- Sequential pose practice mode to guide users through yoga sequences
-- Visual feedback with animated elements for successful poses
-- Confidence threshold display
-- Cross-platform support (mobile app and browser-based web app)
+- **Real-time Pose Recognition**: Uses camera feed to recognize yoga poses based on a trained model
+- **Sequential Pose Practice**: Automatically advances through a sequence of poses when each is recognized
+- **Customizable Pose Images**: Upload your own reference images for each pose
+- **Persistent Settings**: All settings and custom images are saved locally
+- **Responsive Design**: Works on desktops, tablets, and mobile devices
 
-## Technologies Used
+## Installation
 
-### Mobile Version
-- MIT App Inventor framework
-- Teachable Machine AI for pose recognition
-- TensorFlow Lite for mobile inference
-- Custom UI elements for enhanced user experience
+To set up the Yoga Pose Recognizer Web App:
 
-### Web Version
-- Modern JavaScript/TypeScript with React
-- TensorFlow.js for in-browser AI inference
-- Responsive UI with Tailwind CSS
-- Express.js backend for serving the application
+1. Clone the repository:
+   ```
+   git clone https://github.com/serkac1000/YogaPoseRecogniser_WEB.git
+   cd YogaPoseRecogniser_WEB
+   ```
 
-## Getting Started
+2. Install dependencies:
+   ```
+   npm install
+   ```
 
-### Mobile App Version (MIT App Inventor)
-1. Download the latest `.aia` file from the Releases section
-2. Import the file into MIT App Inventor (ai2.appinventor.mit.edu)
-3. Test the app in the emulator or on your device
-4. Follow the on-screen instructions to start practicing yoga poses
+3. Start the development server:
+   ```
+   npm run dev
+   ```
 
-**Note:** If you encounter blocks loading issues, please refer to the `Blocks_Loading_Fix_Guide.md` or try the Web App version instead.
+4. Open your browser and navigate to:
+   ```
+   http://localhost:5000
+   ```
 
-### Web Application Version
-1. Download the `YogaPoseRecognizer_Web.zip` file from the Releases section
-2. Extract the zip file to a location on your computer
-3. Install dependencies with `npm install`
-4. Start the development server with `npm run dev`
-5. Open your browser and navigate to `http://localhost:5000`
+## Usage
 
-For detailed web app installation instructions, see `WEB_APP_README.md`.
+1. **Settings Configuration**:
+   - Access the Settings page first to configure the application
+   - Enter a TensorFlow.js model URL (default model included)
+   - Upload custom reference images for each pose
 
-## Releases
+2. **Pose Practice**:
+   - Return to the main screen and click "Start Recognition"
+   - Position yourself in front of the camera
+   - Follow the current expected pose shown on screen
+   - Hold the pose until it's recognized (minimum 50% confidence)
+   - The app will automatically advance to the next pose
 
-- v1.1.1: Added debug version and web application alternative
-- v1.0.1: Maintenance release with fixed block code and enhanced stability
-- v1.0.0: Initial release with core features
+3. **Sequence Flow**:
+   - The app cycles through poses in sequence (Pose 1 → Pose 2 → Pose 3 → Pose 1)
+   - Progress is indicated in the pose sequence tracker
+
+## Model Information
+
+This application uses models trained with [Teachable Machine](https://teachablemachine.withgoogle.com/), a web-based tool that makes creating machine learning models fast, easy, and accessible.
+
+The default model recognizes three basic yoga poses:
+- Pose 1: Mountain Pose (Tadasana)
+- Pose 2: Tree Pose (Vrikshasana)
+- Pose 3: Warrior Pose (Virabhadrasana)
+
+You can create and use your own custom pose models by:
+1. Training a pose model on [Teachable Machine](https://teachablemachine.withgoogle.com/)
+2. Publishing your model
+3. Using the provided model URL in the app settings
+
+## Privacy and Security
+
+- All processing happens locally in your browser
+- No images or video data are sent to any server
+- Custom pose images are stored locally in your browser
+
+## Development
+
+This application is built with:
+- React with TypeScript
+- TensorFlow.js for machine learning
+- Shadcn UI components for the interface
+- Vite for development and building
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License
