@@ -28,11 +28,11 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
       try {
         // Load pose classification model
         const modelLoaded = await loadModel();
-        
+
         if (!modelLoaded) {
           console.warn('Classification model failed to load, continuing with pose detection only');
         }
-        
+
         try {
           // Load pose detection model (MoveNet)
           const detectorConfig = {
@@ -49,7 +49,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
           console.error('Failed to load pose detection model:', poseErr);
           // Continue even if pose detector fails - we'll just not show the skeleton
         }
-        
+
         // Mark as loaded even if only the classification model loaded
         setModelLoaded(true);
       } catch (err) {
@@ -59,7 +59,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
     };
 
     initModel();
-    
+
     // Cleanup
     return () => {
       if (poseDetector) {
@@ -71,24 +71,24 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
   // Camera setup effect
   useEffect(() => {
     if (!modelLoaded) return;
-    
+
     let attemptCount = 0;
     const maxAttempts = 3;
-    
+
     const setupCamera = async () => {
       try {
         // First check if getUserMedia is available
         if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
           throw new Error('Camera access is not supported in this browser or environment.');
         }
-        
+
         // Try to access the camera with lower constraints if we've already failed before
         const constraints = attemptCount === 0 
           ? { video: { facingMode: 'user', width: 640, height: 480 } }
           : { video: true }; // Simplified constraints as fallback
-        
+
         const stream = await navigator.mediaDevices.getUserMedia(constraints);
-        
+
         if (videoRef.current) {
           videoRef.current.srcObject = stream;
           try {
@@ -102,13 +102,13 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
       } catch (err) {
         console.error('Error accessing camera:', err);
         attemptCount++;
-        
+
         if (attemptCount < maxAttempts) {
           console.log(`Retrying camera setup (attempt ${attemptCount + 1}/${maxAttempts})...`);
           setTimeout(setupCamera, 500); // Try again after a short delay
         } else {
           setError('Unable to access your camera. Please ensure camera permissions are enabled and you are using a device with a camera.');
-          
+
           // In a real environment, this would access the camera
           // For development/testing, we can continue without camera access
           if (process.env.NODE_ENV === 'development') {
@@ -119,7 +119,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
     };
 
     setupCamera();
-    
+
     return () => {
       // Cleanup camera stream when component unmounts
       if (videoRef.current?.srcObject) {
@@ -138,7 +138,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
   ) => {
     // Reset canvas
     ctx.clearRect(0, 0, videoWidth, videoHeight);
-    
+
     // Draw each pose
     for (const pose of poses) {
       // Draw keypoints
@@ -148,7 +148,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
             // Map position to mirror the coordinates
             const x = videoWidth - keypoint.x;
             const y = keypoint.y;
-            
+
             // Draw circle for the keypoint
             ctx.beginPath();
             ctx.arc(x, y, 5, 0, 2 * Math.PI);
@@ -159,7 +159,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
             ctx.stroke();
           }
         }
-        
+
         // Draw connections between keypoints
         const adjacentKeypoints = [
           // Torso
@@ -178,7 +178,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
           ['right_hip', 'right_knee'],
           ['right_knee', 'right_ankle'],
         ];
-        
+
         // Create a map of keypoint name to x,y coordinates
         const keypointMap = new Map();
         pose.keypoints.forEach(keypoint => {
@@ -189,15 +189,15 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
             });
           }
         });
-        
+
         // Draw lines connecting keypoints
         ctx.lineWidth = 2;
         ctx.strokeStyle = '#00FF00';
-        
+
         for (const [first, second] of adjacentKeypoints) {
           const firstKeypoint = keypointMap.get(first);
           const secondKeypoint = keypointMap.get(second);
-          
+
           if (firstKeypoint && secondKeypoint) {
             ctx.beginPath();
             ctx.moveTo(firstKeypoint.x, firstKeypoint.y);
@@ -208,20 +208,20 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
       }
     }
   };
-  
+
   // Timer-based image classification for pose detection
   useEffect(() => {
     if (!isActive || !modelLoaded) return;
-    
+
     let timerId: number;
     let skeletonTimerId: number | undefined;
-    
+
     const processFrame = async () => {
       if (!videoRef.current || !canvasRef.current) return;
-      
+
       const context = canvasRef.current.getContext('2d');
       if (!context) return;
-      
+
       // Capture frame from video to canvas with horizontal mirroring
       const { width, height } = canvasRef.current;
       // Flip the image horizontally for processing
@@ -230,26 +230,26 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
       context.drawImage(videoRef.current, 0, 0, width, height);
       // Reset the transformation matrix
       context.setTransform(1, 0, 0, 1, 0, 0);
-      
+
       try {
         // Classify the image
         const result = await classifyImage(canvasRef.current);
         if (result) {
           const { className, probability } = result;
-          
+
           // Improve confidence verification:
           // Only update if confidence is above a minimum threshold to avoid flickering
-          const minConfidenceThreshold = 0.3;
+          const minConfidenceThreshold = 0.9; // Increased threshold
           if (probability >= minConfidenceThreshold) {
             // Update state with the detected pose and its confidence
             setCurrentPose(className);
             setConfidence(probability);
-            
+
             // Show star animation if confidence is above threshold
-            setShowStar(probability >= 0.5);
-            
+            setShowStar(probability >= 0.9); // Increased threshold
+
             // Only report pose to parent if we're confident
-            if (probability >= 0.5) {
+            if (probability >= 0.9) { // Increased threshold
               onPoseDetected(className, probability);
             }
           }
@@ -258,19 +258,19 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
         console.error('Error during pose classification:', err);
       }
     };
-    
+
     // Run classification less frequently (500ms)
     timerId = window.setInterval(processFrame, 500);
-    
+
     // Only run skeleton detection if pose detector is available
     if (poseDetector) {
       const renderSkeleton = async () => {
         if (!videoRef.current || !skeletonCanvasRef.current) return;
-        
+
         try {
           // Detect poses
           const poses = await poseDetector.estimatePoses(videoRef.current);
-          
+
           // Draw skeleton on canvas
           const ctx = skeletonCanvasRef.current.getContext('2d');
           if (ctx && poses.length > 0) {
@@ -282,11 +282,11 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
           console.error('Error during pose detection:', err);
         }
       };
-      
+
       // Run skeleton detection more frequently for smoothness (100ms)
       skeletonTimerId = window.setInterval(renderSkeleton, 100);
     }
-    
+
     return () => {
       window.clearInterval(timerId);
       if (skeletonTimerId) {
@@ -303,7 +303,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
       </Card>
     );
   }
-  
+
   if (error) {
     // In error/demo mode we'll use a demo skeleton animation
     // For camera errors, show the demo skeleton with error message
@@ -313,7 +313,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
           {/* Show demo skeleton animation */}
           <DemoSkeleton isActive={isActive} />
         </Card>
-        
+
         <Card className="p-4 bg-red-50 border-red-200">
           <div className="text-center">
             <p className="text-red-500 font-semibold mb-2">
@@ -328,26 +328,26 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
               <li>Camera permissions are granted in your browser</li>
               <li>You're not in private/incognito mode (which may block camera access)</li>
             </ul>
-            
+
             <div className="mt-4">
               <p className="text-gray-700 font-medium">Demo Mode Active</p>
               <p className="text-gray-600 text-xs">Using simulated data for demonstration</p>
             </div>
           </div>
         </Card>
-        
+
         {/* Star animation overlay */}
         {showStar && (
           <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
             <StarAnimation />
           </div>
         )}
-        
+
         {/* Pose detection info overlay */}
         {isActive && (
           <div className="absolute bottom-4 left-4 right-4 bg-black/70 text-white p-2 rounded">
             <p className="text-center">
-              {confidence >= 0.5 
+              {confidence >= 0.9 
                 ? `${currentPose} Detected! (${(confidence * 100).toFixed(0)}%)` 
                 : 'No Pose Detected'}
             </p>
@@ -384,7 +384,7 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
             />
           )}
         </div>
-        
+
         {/* Hidden canvas for processing */}
         <canvas 
           ref={canvasRef} 
@@ -393,27 +393,27 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
           className="hidden"
         />
       </Card>
-      
+
       {/* Overlay to show when inactive */}
       {!isActive && (
         <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
           <p className="text-white text-xl font-medium">Press Start to Begin</p>
         </div>
       )}
-      
+
       {/* Star animation overlay */}
       {showStar && (
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
           <StarAnimation />
         </div>
       )}
-      
+
       {/* Pose detection info overlay */}
       {isActive && (
         <div className="absolute bottom-4 left-4 right-4 bg-black/70 text-white p-2 rounded">
           <p className="text-center">
-            {confidence >= 0.5 
-              ? `${currentPose} Detected! (${(confidence * 100).toFixed(0)}%)` 
+            {confidence >= 0.9
+              ? `${currentPose} Detected! (${(confidence * 100).toFixed(0)}%)`
               : 'No Pose Detected'}
           </p>
         </div>
