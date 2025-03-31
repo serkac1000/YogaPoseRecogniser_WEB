@@ -237,21 +237,34 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
         if (result) {
           const { className, probability } = result;
 
-          // Improve confidence verification:
-          // Only update if confidence is above a minimum threshold to avoid flickering
-          const minConfidenceThreshold = 0.95; // Increased threshold
+          // Add state to track pose hold time
+          const [poseHoldStartTime, setPoseHoldStartTime] = useState<number | null>(null);
+          const POSE_HOLD_DURATION = 3000; // 3 seconds in milliseconds
+          
+          // Improve confidence verification with timing
+          const minConfidenceThreshold = 0.95;
           if (probability >= minConfidenceThreshold) {
-            // Update state with the detected pose and its confidence
-            setCurrentPose(className);
-            setConfidence(probability);
-
-            // Show star animation if confidence is above threshold
-            setShowStar(probability >= 0.95); // Increased threshold
-
-            // Only report pose to parent if we're confident
-            if (probability >= 0.95) { // Increased threshold
+            const currentTime = Date.now();
+            
+            if (!poseHoldStartTime) {
+              setPoseHoldStartTime(currentTime);
+            } else if (currentTime - poseHoldStartTime >= POSE_HOLD_DURATION) {
+              // Update state with the detected pose and its confidence
+              setCurrentPose(className);
+              setConfidence(probability);
+              
+              // Show star animation
+              setShowStar(true);
+              
+              // Report pose to parent
               onPoseDetected(className, probability);
+              
+              // Reset hold timer
+              setPoseHoldStartTime(null);
             }
+          } else {
+            // Reset hold timer if confidence drops
+            setPoseHoldStartTime(null);
           }
         }
       } catch (err) {
@@ -262,7 +275,24 @@ export default function YogaPoseRecognizer({ isActive, onPoseDetected }: YogaPos
     // Run classification less frequently (500ms)
     timerId = window.setInterval(processFrame, 500);
 
-    // Only run skeleton detection if pose detector is available
+    // Initialize pose detector
+    useEffect(() => {
+      const initPoseDetector = async () => {
+        try {
+          const detector = await poseDetection.createDetector(
+            poseDetection.SupportedModels.MoveNet,
+            { modelType: poseDetection.movenet.modelType.SINGLEPOSE_THUNDER }
+          );
+          setPoseDetector(detector);
+        } catch (err) {
+          console.error('Error initializing pose detector:', err);
+        }
+      };
+      
+      initPoseDetector();
+    }, []);
+
+    // Run skeleton detection if pose detector is available
     if (poseDetector) {
       const renderSkeleton = async () => {
         if (!videoRef.current || !skeletonCanvasRef.current || !poseDetector) return;
